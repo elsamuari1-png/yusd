@@ -1,0 +1,316 @@
+.matrix-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0.25;
+}
+
+.symbol {
+    position: absolute;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #00ff88;
+    animation: fall linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+    color: #00ff88;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #00ff88;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.form-box {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00ff88;
+    border-radius: 15px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+}
+
+.form-box h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9));
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: #ffd700;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-align: right;
+}
+
+.form-box input:focus {
+    outline: none;
+    border: 2px solid #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.form-box button {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #ffd700;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-box button:hover,
+.form-box button:focus {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #1a1a2e;
+    outline: none;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.form-box button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #00ff88;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error-msg {
+    color: #ff3333;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.input-group {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    right: auto;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ffd700;
+    font-size: 20px;
+    user-select: none;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #00ff88;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: right;
+    direction: rtl;
+    white-space: nowrap;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.telegram-icon-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+}
+
+.telegram-icon-container a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: #0088cc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.telegram-icon-container a svg {
+    width: 28px;
+    height: 28px;
+}
+
+.telegram-icon-container a svg path {
+    fill: #ffffff;
+}
+
+.dialog-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-box {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #00ff88;
+    border-radius: 15px;
+    padding: 25px 30px;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.dialog-box h2 {
+    color: #ffd700;
+    margin-bottom: 15px;
+}
+
+.dialog-box p {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.dialog-box button {
+    padding: 10px 30px;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #ffd700;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dialog-box button:hover,
+.dialog-box button:focus {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #1a1a2e;
+    outline: none;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+@media (max-width: 400px) {
+    .form-box {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        /* --- START: CHANGED CODE --- */
+        align-items: center; /* This ensures vertical centering on mobile */
+        /* --- END: CHANGED CODE --- */
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+    }
+
+    body::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+        background: #0f0f23;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: #ffd700;
+        border-radius: 10px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+        background-color: #00ff88;
+    }
+}

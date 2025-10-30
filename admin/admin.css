@@ -1,0 +1,434 @@
+/* CSS Variables for Theming */
+:root {
+    --bg-color: #0d0d0d;
+    --surface-color: #1a1a2e;
+    --primary-color: #00ff88;
+    --secondary-color: #ffd700;
+    --text-color: #e0e0e0;
+    --text-muted-color: #a9a9a9;
+    --border-color: #00ff88;
+    --shadow-color: rgba(0, 255, 136, 0.2);
+    --input-bg: rgba(0, 0, 0, 0.3);
+    --error-color: #d32f2f;
+    --success-color: #388e3c;
+}
+
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    direction: rtl;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.highlight {
+    color: var(--secondary-color);
+}
+
+/* --- Login Styles (New) --- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background: var(--surface-color);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 40px var(--shadow-color);
+    text-align: center;
+}
+
+.login-box h1 {
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Top Bar */
+.top-bar {
+    background: var(--surface-color);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.top-bar h1 {
+    margin: 0;
+    font-size: 1.6em;
+    color: var(--text-color);
+}
+
+.logout-btn {
+    background: transparent;
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background: var(--error-color);
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+    padding: 0 15px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+p.description {
+    color: var(--text-muted-color);
+    margin-bottom: 20px;
+}
+
+/* Main Action Buttons */
+.main-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    background: transparent;
+    color: var(--primary-color);
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover, .action-btn:focus {
+    background: var(--shadow-color);
+    color: var(--text-color);
+    border-color: var(--text-color);
+    transform: translateY(-5px);
+    outline: none;
+}
+
+.action-btn svg {
+    width: 35px;
+    height: 35px;
+    fill: currentColor;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background: var(--surface-color);
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 0 40px var(--shadow-color);
+    text-align: right;
+}
+
+.close-btn {
+    color: var(--text-muted-color);
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Styles for elements inside modals */
+.input-group {
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="url"], input[type="search"] {
+    width: 100%;
+    padding: 12px;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 1em;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+button {
+    flex-grow: 1;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.ban-btn, .remove-btn {
+    background: var(--error-color);
+    color: #fff;
+}
+
+.unban-btn {
+    background: var(--success-color);
+    color: #fff;
+}
+
+.message-feedback {
+    margin-top: 20px;
+    min-height: 20px;
+    font-weight: 500;
+}
+
+.section-title {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    text-align: right;
+}
+
+/* List Styles */
+.list-container {
+    max-height: 400px;
+    overflow-y: auto;
+    text-align: right;
+    margin-top: 15px;
+}
+
+.user-item, .balance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-color);
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.user-item {
+    border-right: 4px solid var(--primary-color);
+}
+
+.user-info .name, .user-details .name {
+    display: block;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.user-info .email, .user-details .email {
+    display: block;
+    color: var(--text-muted-color);
+    font-size: 0.9em;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.copy-btn {
+    background: none;
+    cursor: pointer;
+    color: var(--secondary-color);
+    padding: 5px;
+    flex-grow: 0;
+}
+
+.copy-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.report-item {
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border-right: 4px solid var(--error-color);
+    text-align: right;
+}
+
+.report-item .meta-info {
+    font-size: 0.9em;
+    color: var(--text-muted-color);
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.report-item .meta-info strong {
+    color: var(--secondary-color);
+}
+
+.report-item p.description {
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.report-item .timestamp {
+    font-size: 0.8em;
+    color: var(--text-muted-color);
+    display: block;
+    text-align: left;
+}
+
+
+/* Specific List Item Styles */
+.user-item.verified {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-item.verified .user-info {
+    grid-column: 1;
+}
+
+.list-badge-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    grid-column: 2;
+}
+
+.user-item.verified .remove-btn {
+    grid-column: 3;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    flex-grow: 0;
+}
+
+.balance-item {
+    border-right: 4px solid var(--secondary-color);
+}
+
+.balance-item .balance-amount {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    margin-right: 15px;
+}
+
+.user-item .unban-btn {
+    flex-grow: 0;
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .action-btn {
+        padding: 20px;
+        font-size: 1.1em;
+        gap: 10px;
+    }
+
+    .action-btn svg {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .main-actions {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}

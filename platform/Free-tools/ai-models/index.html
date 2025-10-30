@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تطبيقات الذكاء الاصطناعي</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>مركز الذكاء الاصطناعي</span>
+            </div>
+            
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="ابحث عن التطبيقات..." class="search-input">
+            </div>
+
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="header">
+            <div class="header-icon">
+                <i class="fas fa-brain"></i>
+            </div>
+            <h1>منصة نماذج الذكاء الاصطناعي</h1>
+            <p>يستهدف نماذج الذكاء الاصطناعي المتقدمة</p>
+        </div>
+
+        <div id="loadingMessage" class="loading">
+            <div class="spinner"></div>
+            <p>جاري التحميل...</p>
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <i class="fas fa-search"></i>
+            <p>لم يتم العثور على نتائج</p>
+        </div>
+
+        <div class="cards-container" id="cardsContainer"></div>
+    </div>
+
+    <button class="add-button" id="addButton" title="إضافة تطبيق جديد">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus-circle"></i> إضافة نموذج جديد</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="appForm">
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-user"></i>
+                        اسم المستخدم
+                    </label>
+                    <input type="text" id="userName" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-link"></i>
+                        رابط التطبيق
+                    </label>
+                    <input type="url" id="appLink" placeholder="https://example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-image"></i>
+                        رابط الصورة
+                    </label>
+                    <input type="url" id="imageLink" placeholder="https://example.com/image.jpg" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-align-right"></i>
+                        وصف النموذج
+                    </label>
+                    <textarea id="description" placeholder="اكتب وصفاً للنموذج..." required></textarea>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        إرسال
+                    </button>
+                    <button type="button" class="btn btn-cancel" id="cancelButton">
+                        <i class="fas fa-times"></i>
+                        إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

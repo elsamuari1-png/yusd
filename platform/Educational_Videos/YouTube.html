@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Video Stream - بث الفيديوهات</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body class="dark-mode">
+  <header class="navbar">
+    <div class="logo">Video Stream</div>
+    
+    <form class="search-form" id="search-form">
+        <input type="text" id="search-input" placeholder="ابحث بعنوان الفيديو أو اسم الناشر..." autocomplete="off">
+        <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
+    </form>
+  </header>
+
+  <main class="video-container"></main>
+
+  <button class="upload-btn" id="upload-btn">+</button>
+
+  <div class="upload-modal" id="upload-modal">
+    <div class="modal-content">
+      
+      <div id="upload-form-wrapper">
+        <div class="modal-header">
+          <i class="fas fa-cloud-upload-alt header-icon"></i>
+          <h2>رفع فيديو جديد</h2>
+          <p>املأ الحقول التالية لمشاركة الفيديو مع الآخرين</p>
+          <span class="close-btn">&times;</span>
+        </div>
+        <form id="upload-form">
+          
+          <div class="input-group">
+            <input type="text" id="uploader-name" class="form-input" required readonly placeholder=" ">
+            <label for="uploader-name">اسم الناشر</label>
+            <i class="fas fa-user input-icon"></i>
+          </div>
+          
+          <div class="input-group">
+            <input type="text" id="video-title" class="form-input" required placeholder=" ">
+            <label for="video-title">عنوان الفيديو</label>
+            <i class="fas fa-heading input-icon"></i>
+          </div>
+
+          <div class="input-group">
+            <textarea id="video-desc" class="form-input" required placeholder=" " rows="3"></textarea>
+            <label for="video-desc">وصف الفيديو</label>
+            <i class="fas fa-paragraph input-icon"></i>
+          </div>
+          
+          <div class="input-group">
+            <input type="url" id="video-link" class="form-input" required placeholder=" ">
+            <label for="video-link">رابط الفيديو (YouTube)</label>
+            <i class="fab fa-youtube input-icon"></i>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            نشر الفيديو الآن
+          </button>
+
+        </form>
+      </div>
+
+      <div class="success-dialog" id="modal-success-content" style="display: none;">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <p>تم رفع الفيديو بنجاح!</p>
+        <button id="confirm-close-btn">رائع!</button>
+      </div>
+
+      <div class="error-dialog" id="modal-error-content" style="display: none;">
+        <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <p id="error-message">يرجى إدخال رابط فيديو YouTube صحيح.</p>
+        <button id="confirm-error-close-btn">المحاولة مرة أخرى</button>
+      </div>
+      
+    </div>
+  </div>
+
+</body>
+</html>

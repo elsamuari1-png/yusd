@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة العروض</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body class="dark-mode">
+    <header class="top-bar">
+        <div class="header-controls">
+            <button class="filter-btn" id="filterBtn"><i class="fas fa-filter"></i></button>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="ابحث...">
+            </div>
+            <select id="searchType">
+                <option value="name">اسم العرض</option>
+                <option value="description">الوصف</option>
+                <option value="price">السعر</option>
+                <option value="category">التصنيف</option>
+                <option value="creator">اسم مقدم الخدمة</option>
+            </select>
+        </div>
+
+        <div class="mode-switcher">
+            <i class="fas fa-sun mode-icon" id="light-mode-btn"></i>
+            <i class="fas fa-moon mode-icon" id="dark-mode-btn"></i>
+        </div>
+    </header>
+
+    <div class="container" id="main-content">
+        <div id="offersList">
+        </div>
+    </div>
+
+    <button class="fab" id="addOfferBtn">
+        <span class="fab-icon"><i class="fas fa-plus"></i></span>
+        <span class="fab-text">إضافة عرض جديد</span>
+    </button>
+    
+    <div id="offerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>إضافة عرض جديد</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <form id="offerForm">
+                <div class="form-group">
+                    <label for="offerName">اسم العرض</label>
+                    <div class="input-group">
+                        <i class="fas fa-tag"></i>
+                        <input type="text" id="offerName" placeholder="مثال: تصميم شعار احترافي" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="offerDescription">وصف العرض</label>
+                    <div class="input-group">
+                        <i class="fas fa-align-left"></i>
+                        <textarea id="offerDescription" placeholder="اكتب تفاصيل الخدمة التي تقدمها..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="offerPrice">السعر ($)</label>
+                        <div class="input-group">
+                            <i class="fas fa-dollar-sign"></i>
+                            <input type="number" id="offerPrice" placeholder="5" required min="5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="offerCategory">التصنيف</label>
+                        <div class="input-group">
+                             <i class="fas fa-briefcase"></i>
+                            <select id="offerCategory" required>
+                                <option value="مبيعات" selected>مبيعات</option>
+                                <option value="تسويق الكتروني">تسويق الكتروني</option>
+                                <option value="دراسه جدوى">دراسة جدوى</option>
+                                <option value="تصميمات معماريه">تصميمات معماريه</option>
+                                <option value="الخدمات الماليه">الخدمات الماليه</option>
+                                <option value="محاسبه">محاسبه</option>
+                                <option value="كمبيوتر وتقنيه">كمبيوتر وتقنيه</option>
+                                <option value="برمجه">برمجه</option>
+                                <option value="تدريب">تدريب</option>
+                                <option value="دعم فني">دعم فني</option>
+                                <option value="تحليل البيانات">تحليل البيانات</option>
+                                <option value="تصوير احترافي">تصوير احترافي</option>
+                                <option value="فيديو وصوت">فيديو وصوت</option>
+                                <option value="كتابه وترجمه">كتابه وترجمه</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>مدة العرض</label>
+                    <div id="durationOptions" class="duration-options">
+                        <div class="duration-option active" data-value="8">8 ساعات</div>
+                        <div class="duration-option" data-value="12">12 ساعة</div>
+                        <div class="duration-option" data-value="24">24 ساعة</div>
+                        <div class="duration-option" data-value="72">3 أيام</div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">نشر العرض</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="successModal" class="modal">
+        <div class="modal-content success-dialog">
+            <div class="success-icon-container">
+                <i class="fas fa-check-circle success-icon"></i>
+            </div>
+            <h2>تم النشر بنجاح!</h2>
+            <p>سيظهر عرضك للجميع الآن.</p>
+            <button id="okBtn" class="modal-button">حسنًا</button>
+        </div>
+    </div>
+    
+    <div id="banModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تنبيه</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>أنت محظور من استخدام هذا القسم. السبب: العروض التي تقوم بنشرها ليست حقيقية.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button-secondary close-modal-btn">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="readMoreModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="readMoreTitle"></h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="readMoreContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button-secondary close-modal-btn">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="filterModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>فلترة حسب التصنيف</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <ul id="filterList" class="filter-list">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header">
+                <h2>لحظة من فضلك</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>جاري تحميل بيانات المستخدم، يرجى المحاولة مرة أخرى بعد لحظات قليلة.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button-secondary close-modal-btn">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

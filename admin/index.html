@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الأدمن</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1>لوحة تحكم <span class="highlight">نيتروس</span></h1>
+    </header>
+
+    <div class="container">
+        <div class="main-actions">
+            <button id="showUsersBtn" class="action-btn">
+                <svg viewBox="0 0 640 512"><path d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM320 256c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80zM256 478.4c0-9.2 3.4-18.1 9.4-25.1c23.2-27.1 55.6-44.4 91.6-48.4c-10.3-2.2-20.9-3.4-31.9-3.4c-35.2 0-68.8 9.8-96 27.2c-2.8 1.8-5.5 3.7-8.1 5.8c-2.3-2.6-4.9-5-7.7-7.2c-27.2-21.6-58.9-35.2-92.4-38.4C53.9 398.2 0 452.9 0 512h320c0-17.7-7.2-33.8-18.8-45.5c-11.5-11.6-26.6-18.1-42.3-18.1H256v-22.1c0-17-6.7-33.3-18.7-45.3c-11.9-11.9-27.7-18.7-44.3-18.7H192c-35.3 0-64-28.7-64-64v-16c0-5.3-4.3-9.6-9.6-9.6H112c-17.7 0-32 14.3-32 32v6.4c0 17.7-14.3 32-32 32s-32-14.3-32-32V384c0-35.3 28.7-64 64-64h16c17.7 0 32-14.3 32-32v-3.2c0-17.7 14.3-32 32-32h16c17.7 0 32-14.3 32-32s-14.3-32-32-32H256c-17.7 0-32-14.3-32-32s14.3-32 32-32h16c17.7 0 32 14.3 32 32v6.4c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-35.3-28.7-64-64-64H288c-17.7 0-32-14.3-32-32v-16c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32v16c0 17.7 14.3 32 32 32h16c17.7 0 32 14.3 32 32v3.2c0 17.7-14.3 32-32 32H448c-17.7 0-32 14.3-32 32v16c0 35.3 28.7 64 64 64h.4c5.3 0 9.6 4.3 9.6 9.6v16c0 35.3-28.7 64-64 64H448c-16.6 0-31.7 6.7-42.7 18.7c-12 12-18.7 28.3-18.7 45.3v22.1h-1.2c-15.7 0-30.8 6.5-42.3 18.1C327.2 498.2 320 514.3 320 512h320c-59.1 0-113.8-53.9-116.8-119.6c-33.5 3.2-65.2 16.8-92.4 38.4c-2.8 2.2-5.4 4.6-7.7 7.2c-2.6-2.1-5.3-4-8.1-5.8c-27.2-17.5-60.8-27.2-96-27.2c-11 0-21.6 1.3-31.9 3.4c36 4 68.4 21.2 91.6 48.4c6 7 9.4 15.9 9.4 25.1z"/></svg>
+                <span>عرض المستخدمين</span>
+            </button>
+            <button id="chargeBalanceBtn" class="action-btn">
+                <svg viewBox="0 0 512 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM352 288h-48c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h48c17.7 0 32 14.3 32 32v32c0 17.7-14.3 32-32 32zM208 288h-48c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h48c17.7 0 32 14.3 32 32v32c0 17.7-14.3 32-32 32zM96 160c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32v32c0 17.7-14.3 32-32 32h-32c-17.7 0-32-14.3-32-32V160zM416 128h-32c-17.7 0-32 14.3-32 32v32c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32z"/></svg>
+                <span>إدارة رصيد GT</span>
+            </button>
+            <button id="showReportsBtn" class="action-btn">
+                <svg viewBox="0 0 512 512"><path d="M440.7 8.6c-16.3-12.1-39.4-7.5-51.6 8.8L339.6 86.8l-48.4-48.4c-18.7-18.7-49.1-18.7-67.9 0L173.8 88.4l-48.4-48.4c-18.7-18.7-49.1-18.7-67.9 0L8.6 88.9c-12.1 16.3-7.5 39.4 8.8 51.6l58.4 43.8-43.8 58.4c-16.3 12.1-20.9 35.2-8.8 51.6l48.9 65.2c12.1 16.3 35.2 20.9 51.6 8.8l43.8-58.4 58.4 43.8c16.3 12.1 39.4 7.5 51.6-8.8l65.2-48.9c12.1-16.3 7.5-39.4-8.8-51.6L348.1 268l43.8-58.4c16.3-12.1 20.9-35.2 8.8-51.6L351.8 119.1 400.2 70.7l40.5-53.3c12.1-16.3 7.5-39.4-8.9-51.6zM224 224c-35.3 0-64 28.7-64 64s28.7 64 64 64s64-28.7 64-64s-28.7-64-64-64zM464 512H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h80c13.3 0 24 10.7 24 24s-10.7 24-24 24H48v336h416V368c0-13.3 10.7-24 24-24s24 10.7 24 24v96c0 26.5-21.5 48-48 48z"/></svg>
+                <span>عرض الإبلاغات</span>
+            </button>
+            <button id="manageUserBtn" class="action-btn">
+                <svg viewBox="0 0 640 512"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3zM556.1 212.1c23.6 23.6 23.6 62.3 0 85.9L491.5 362.5c-19.6 19.6-51.5 19.6-71.1 0l-45.7-45.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6l45.7 45.7c31.3 31.3 81.9 31.3 113.1 0l64.6-64.6c35.2-35.2 35.2-92.2 0-127.3l-26-26c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6l26 26zM428.1 124.1c23.6-23.6 62.3-23.6 85.9 0l64.6 64.6c23.6 23.6 23.6 62.3 0 85.9l-64.6 64.6c-23.6 23.6-62.3 23.6-85.9 0l-26 26c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l26-26c31.3-31.3 31.3-81.9 0-113.1l-45.7-45.7c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0l45.7 45.7z"/></svg>
+                <span>إدارة حظر الحسابات</span>
+            </button>
+             <button id="manageOffersBtn" class="action-btn">
+                <svg viewBox="0 0 512 512"><path d="M345 39.1L471.1 165c4.7 4.7 4.7 12.3 0 17l-192 192c-4.7 4.7-12.3 4.7-17 0L70 201.7c-4.7-4.7-4.7-12.3 0-17l192-192c4.7-4.7 12.3-4.7 17 0zM240 128H96V96c0-17.7-14.3-32-32-32S32 78.3 32 96v48c0 17.7 14.3 32 32 32h48v32H64c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32H64c-17.7 0-32 14.3-32 32s14.3 32 32 32h48v48c0 17.7 14.3 32 32 32s32-14.3 32-32V352h32v48c0 17.7 14.3 32 32 32s32-14.3 32-32V368h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V352h48c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V256h48c17.7 0 32-14.3 32-32s-14.3-32-32-32H320V144h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H288V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V80h32v48z"/></svg>
+                <span>إدارة العروض</span>
+            </button>
+            <button id="chatBanBtn" class="action-btn">
+                <svg viewBox="0 0 640 512"><path d="M384 0C501.9 0 640 93.1 640 208v16c0 61.9-31.5 116.8-79.9 149.3c9.8 19.8 19.2 39.9 27.9 60.6c3.1 7.2-1 15.5-8.4 18.6s-15.5 1-18.6-8.4C552.1 413.5 542.4 393 532.4 373.1C497.3 399.7 444.4 416 384 416C266.1 416 128 322.9 128 208S266.1 0 384 0zM122.3 46.9L46.9 122.3C35.8 133.5 32.1 149.3 32.8 164.7C34.4 207.2 50.1 247.2 71.9 281.4C29.4 300.9 0 338.3 0 384v16c0 54.4 44.4 99.4 99.4 102.3c2.4 .1 4.8 .2 7.2 .2c34.3 0 66.8-13.5 90.5-37.2c2.5-2.5 4.9-5.1 7.3-7.8c23.6 12.8 50.4 20.3 79.1 22.3c-11.4 12.9-25.1 23.9-40.4 32.1C219.4 518.5 192.6 528 160 528c-12.8 0-25.2-1.9-37.1-5.5c-7.2-2.2-14.8 .8-17.1 7.9s.8 14.8 7.9 17.1c15.1 4.6 30.9 7 47.1 7c42.1 0 81.9-12.5 114.7-34.3c35.6-23.7 63.8-57.2 79.1-96.5l145.4 145.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L167.7 46.9c-12.5-12.5-32.8-12.5-45.3 0z"/></svg>
+                <span>إدارة حظر الدردشة</span>
+            </button>
+            <button id="manageGroupsBtn" class="action-btn">
+                <svg viewBox="0 0 512 512"><path d="M242.4 292.5C240.5 290.6 238.3 289 236.1 287.9C233.1 286.4 229.8 285 226.5 285C201.2 285 181 305.2 181 330.5C181 355.8 201.2 376 226.5 376C251.8 376 272 355.8 272 330.5C272 324 270.2 317.8 267.5 312.5C266.4 310.3 264.9 308.2 263 306.3C261.2 304.6 259.2 303.1 257.2 301.7C254.3 299.6 251.2 297.8 248 296.3C246.4 295.3 244.5 294.1 242.4 292.5ZM226.5 351C215.5 351 206 341.5 206 330.5C206 319.5 215.5 310 226.5 310C237.5 310 247 319.5 247 330.5C247 341.5 237.5 351 226.5 351zM496 256C496 362.7 402.7 456 296 456C259.4 456 225.1 445.5 196.2 427.5C193.3 438.8 189.2 450.3 183.7 461.3C174.5 479.8 161.4 495.9 146.4 508.8C138.1 515.9 127.9 518.2 118.4 515.2C108.9 512.2 101.3 504.5 98.4 495.1C89.5 467.2 88.3 435.2 95.3 404.2C34.7 353.1 0 293.4 0 224C0 117.3 93.3 24 200 24C254.4 24 302.2 46.1 335.5 79.5C368.9 112.9 391 160.7 391 215C391 222.7 390.1 230.3 388.5 237.8C388.3 238.7 388.1 239.5 387.8 240.4C417.8 214.3 454.1 199 496 199C505 199 512 206 512 215C512 224 505 231 496 231C468.9 231 444.6 239.5 424.8 253.7C423.4 254.6 422.1 255.4 420.8 256.3C462.5 264.3 496 303.3 496 256z"/></svg>
+                <span>إدارة المجموعات والقنوات</span>
+            </button>
+            <button id="verificationBtn" class="action-btn">
+                <svg viewBox="0 0 512 512"><path d="M400 256c0 26.5 21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48zM64 256c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48s-48-21.5-48-48zM256 64c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48zM256 448c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zM425 151c-19.5-19.5-51.2-19.5-70.7 0L224 281.3 158.1 215.4c-19.5-19.5-51.2-19.5-70.7 0s-19.5 51.2 0 70.7l96 96c19.5 19.5 51.2 19.5 70.7 0l160-160c19.5-19.5 19.5-51.2 0-70.7z"/></svg>
+                <span>إدارة التوثيق</span>
+            </button>
+            <button id="manageUploadBtn" class="action-btn">
+                <svg viewBox="0 0 576 512"><path d="M384 112c-13.3 0-24 10.7-24 24v104h-168c-13.3 0-24 10.7-24 24s10.7 24 24 24h168v104c0 13.3 10.7 24 24 24s24-10.7 24-24V288h104c13.3 0 24-10.7 24-24s-10.7-24-24-24H408V136c0-13.3-10.7-24-24-24zM88 384H64c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V448h-32v32H96V416h24c13.3 0 24-10.7 24-24s-10.7-24-24-24zm32-256H96v32h24c13.3 0 24-10.7 24-24s-10.7-24-24-24zm-32-64H64c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm256-64H224c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32z"/></svg>
+                <span>إدارة رفع التطبيقات</span>
+            </button>
+             <button id="manageVideoUploadBtn" class="action-btn">
+                <svg viewBox="0 0 512 512"><path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM48 368v32c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V368c0-8.8-7.2-16-16-16H64c-8.8 0-16 7.2-16 16zm368-192H96c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32H416c17.7 0 32-14.3 32-32V208c0-17.7-14.3-32-32-32z"/></svg>
+                <span>إدارة رفع الفيديوهات</span>
+            </button>
+            <button id="manageAiModelsBtn" class="action-btn">
+                <svg viewBox="0 0 512 512"><path d="M440.3 361.3c-13.3 0-25.7-4.3-35.8-12.3L320 284.7l-47.2 60.5c-11.7 15-31.1 19.3-48.8 10.3L128 304l-71.1 53.3c-15.6 11.7-37.3 10.3-51.6-3.4C-18 335.5-15 304.9 3.4 290.1L96 224l28.9-38.5c11.7-15.6 32.3-20.9 50-13.2l79.9 35.5L352 128l28.9-38.5c11.7-15.6 32.3-20.9 50-13.2L504.1 112c17.7 7.7 25.4 28.3 17.7 45.9s-28.3 25.4-45.9 17.7L448 160l-71.1 53.3c-15.6 11.7-37.3 10.3-51.6-3.4L296.9 192l47.2-60.5c11.7-15 31.1-19.3 48.8-10.3l96.4 48.2 28.9-38.5c11.7-15.6 32.3-20.9 50-13.2L640 128l-71.1 53.3c-15.6 11.7-37.3 10.3-51.6-3.4L488.9 160l47.2-60.5c11.7-15 31.1-19.3 48.8-10.3L681.3 136l-43 57.3c-11.7 15.6-32.3 20.9-50 13.2L480 160l-71.1 53.3c-15.6 11.7-37.3 10.3-51.6-3.4L328.9 192l47.2-60.5c11.7-15 31.1-19.3 48.8-10.3L521.3 168l-43 57.3c-11.7 15.6-32.3 20.9-50 13.2L320 192l-71.1 53.3c-15.6 11.7-37.3 10.3-51.6-3.4L168.9 224l47.2-60.5c11.7-15 31.1-19.3 48.8-10.3L361.3 200l-43 57.3c-11.7 15.6-32.3 20.9-50 13.2L160 224l-71.1 53.3c-15.6 11.7-37.3 10.3-51.6-3.4L8.9 256 128 170.7c15.6-11.7 37.3-10.3 51.6 3.4l28.3 21.2 47.2-60.5c11.7-15 31.1-19.3 48.8-10.3L396.7 160l-43 57.3c-11.7 15.6-32.3 20.9-50 13.2L200 184l-71.1 53.3c-15.6 11.7-37.3 10.3-51.6-3.4L48.9 216l47.2-60.5c11.7-15 31.1-19.3 48.8-10.3L241.3 192l-43 57.3c-11.7 15.6-32.3 20.9-50 13.2L40 216 159.1 288c15.6 11.7 37.3 10.3 51.6-3.4l28.3-21.2 47.2-60.5c11.7-15 31.1-19.3 48.8-10.3L428.7 224l-43 57.3c-11.7 15.6-32.3 20.9-50 13.2L227.6 248l-71.1 53.3c-15.6 11.7-37.3 10.3-51.6-3.4L80 280l-71.1-53.3c-15.6-11.7-37.3-10.3-51.6 3.4C-56 248.5-53 279.1-34.6 293.9L224 448l219.7-164.8c18.4-13.8 21.2-40.4 7.4-58.8-13.8-18.4-40.4-21.2-58.8-7.4L320 268.7l-96.8-72.6c-18.4-13.8-45-11-58.8 7.4-13.8 18.4-11 45 7.4 58.8L224 320l95.7 71.8c18.4 13.8 45 11 58.8-7.4 13.8-18.4 11-45-7.4-58.8L320 284.7l47.2-60.5c11.7-15 31.1-19.3 48.8-10.3L440.3 240c17.7-7.7 25.4-28.3 17.7-45.9s-28.3-25.4-45.9-17.7L400 192l-71.1-53.3c-15.6-11.7-37.3-10.3-51.6 3.4L248.9 160l-47.2 60.5c-11.7 15-31.1 19.3-48.8 10.3L56.5 184l43-57.3c11.7-15.6 32.3-20.9 50-13.2L256 160l71.1-53.3c15.6-11.7 37.3-10.3 51.6 3.4l28.3 21.2-47.2 60.5c-11.7 15-19.3 31.1-10.3 48.8l48.2 96.4-38.5 28.9c-15.6 11.7-20.9 32.3-13.2 50 7.7 17.7 28.3 25.4 45.9 17.7L448 400l53.3-71.1c11.7-15.6 10.3-37.3-3.4-51.6z"/></svg>
+                <span>إدارة نماذج AI</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="usersModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>المستخدمون (<span id="userCount">0</span>)</h2>
+            <div class="input-group">
+                <label for="searchInput">بحث</label>
+                <input type="search" id="searchInput" placeholder="ابحث بالاسم أو البريد الإلكتروني...">
+            </div>
+            <div class="list-container" id="userListContainer"></div>
+        </div>
+    </div>
+
+    <div id="reportsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>الإبلاغات (<span id="reportCount">0</span>)</h2>
+            <div class="list-container" id="reportListContainer"></div>
+        </div>
+    </div>
+
+    <div id="chargeBalanceModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة رصيد GT لمستخدم</h2>
+            <p class="description">أدخل البريد الإلكتروني للمستخدم والمبلغ لتنفيذ عملية الشحن أو الخصم من رصيده الحالي.</p>
+            <div class="input-group">
+                <label for="userEmailBalance">البريد الإلكتروني للمستخدم</label>
+                <input type="email" id="userEmailBalance" placeholder="user@example.com" required>
+            </div>
+            <div class="input-group">
+                <label for="chargeAmount">المبلغ (GT)</label>
+                <input type="number" id="chargeAmount" placeholder="ادخل قيمة موجبة فقط" required min="0">
+            </div>
+            <div class="button-group">
+                <button id="addBalanceBtn" class="unban-btn">شحن الرصيد</button>
+                <button id="deductBalanceBtn" class="ban-btn">خصم من الرصيد</button>
+            </div>
+            <p id="messageBalance" class="message-feedback"></p>
+
+            <h3 class="section-title">أرصدة المستخدمين</h3>
+            <div class="list-container" id="userBalancesContainer"></div>
+        </div>
+    </div>
+
+    <div id="manageUserModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة حساب مستخدم (حظر عام)</h2>
+            <p class="description">أدخل البريد الإلكتروني للمستخدم لتفعيل أو حظر حسابه بشكل كامل.</p>
+            <div class="input-group">
+                <label for="userEmailGeneral">البريد الإلكتروني للمستخدم</label>
+                <input type="email" id="userEmailGeneral" placeholder="user@example.com" required>
+            </div>
+            <div class="button-group">
+                <button id="banUserBtn" class="ban-btn">حظر الحساب</button>
+                <button id="unbanUserBtn" class="unban-btn">فك حظر الحساب</button>
+            </div>
+            <p id="messageGeneral" class="message-feedback"></p>
+
+            <h3 class="section-title">المستخدمون المحظورون حالياً</h3>
+            <div class="list-container" id="bannedUsersContainer">
+                </div>
+        </div>
+    </div>
+    
+    <div id="manageOffersModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة حظر العروض</h2>
+            <p class="description">أدخل بريد المستخدم لحظره من قسم العروض بسبب نشر عروض غير حقيقية.</p>
+            <div class="input-group">
+                <label for="userEmailOffers">البريد الإلكتروني للمستخدم</label>
+                <input type="email" id="userEmailOffers" placeholder="user@example.com" required>
+            </div>
+            <div class="button-group">
+                <button id="banOffersBtn" class="ban-btn">حظر من العروض</button>
+                <button id="unbanOffersBtn" class="unban-btn">فك حظر العروض</button>
+            </div>
+            <p id="messageOffers" class="message-feedback"></p>
+        </div>
+    </div>
+
+    <div id="chatBanModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة حظر الدردشة</h2>
+            <p class="description">أدخل بريد المستخدم لحظر أو فك حظر قدرته على استخدام الدردشة العامة أو الخاصة.</p>
+            <div class="input-group">
+                <label for="userEmailChat">البريد الإلكتروني للمستخدم</label>
+                <input type="email" id="userEmailChat" placeholder="user@example.com" required>
+            </div>
+            <h3 class="section-title">الدردشة العامة</h3>
+            <div class="button-group">
+                <button id="banPublicChatBtn" class="ban-btn">حظر من العامة</button>
+                <button id="unbanPublicChatBtn" class="unban-btn">فك حظر العامة</button>
+            </div>
+            <h3 class="section-title">الدردشة الخاصة</h3>
+            <div class="button-group">
+                <button id="banPrivateChatBtn" class="ban-btn">حظر من الخاص</button>
+                <button id="unbanPrivateChatBtn" class="unban-btn">فك حظر الخاص</button>
+            </div>
+            <p id="messageChat" class="message-feedback"></p>
+        </div>
+    </div>
+
+    <div id="manageGroupsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة حظر المجموعات والقنوات</h2>
+            <p class="description">أدخل اسم المجموعة/القناة أو مُعرّف الانضمام الخاص بها لتطبيق أو إزالة الحظر.</p>
+            <div class="input-group">
+                <label for="groupNameOrIdInput">اسم أو مُعرّف المجموعة/القناة</label>
+                <input type="text" id="groupNameOrIdInput" required>
+            </div>
+            <div class="button-group">
+                <button id="banGroupBtn" class="ban-btn">حظر</button>
+                <button id="unbanGroupBtn" class="unban-btn">فك الحظر</button>
+            </div>
+            <p id="messageGroups" class="message-feedback"></p>
+        </div>
+    </div>
+
+    <div id="verificationModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة توثيق المستخدمين</h2>
+            <p class="description">أدخل بريد المستخدم ورابط صورة التوثيق لإضافتها أو إزالتها.</p>
+            <div class="input-group">
+                <label for="userEmailVerification">البريد الإلكتروني للمستخدم</label>
+                <input type="email" id="userEmailVerification" placeholder="user@example.com" required>
+            </div>
+            <div class="input-group">
+                <label for="badgeUrl">رابط صورة علامة التوثيق</label>
+                <input type="url" id="badgeUrl" placeholder="https://example.com/badge.png">
+            </div>
+            <div class="button-group">
+                <button id="addVerificationBtn" class="unban-btn">إضافة / تحديث</button>
+                <button id="removeVerificationBtn" class="ban-btn">إزالة</button>
+            </div>
+            <p id="messageVerification" class="message-feedback"></p>
+            <h3 class="section-title">المستخدمون الموثوقون حالياً</h3>
+            <div class="list-container" id="verifiedUserListContainer"></div>
+        </div>
+    </div>
+
+    <div id="uploadPermissionsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة صلاحيات رفع التطبيقات</h2>
+            <p class="description">أضف أو أزل المستخدمين المسموح لهم برؤية زر رفع التطبيقات.</p>
+            <div class="input-group">
+                <label for="userEmailPermissions">البريد الإلكتروني للمستخدم</label>
+                <input type="email" id="userEmailPermissions" placeholder="user@example.com" required>
+            </div>
+            <div class="button-group">
+                <button id="addAppPermissionBtn" class="unban-btn">إضافة صلاحية</button>
+                <button id="removeAppPermissionBtn" class="ban-btn">إزالة صلاحية</button>
+            </div>
+            <p id="messagePermissions" class="message-feedback"></p>
+            <h3 class="section-title">المستخدمون المصرح لهم حالياً</h3>
+            <div class="list-container" id="allowedUserListContainer"></div>
+        </div>
+    </div>
+
+    <div id="videoUploadPermissionsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة صلاحيات رفع الفيديوهات</h2>
+            <p class="description">أضف أو أزل صلاحية رفع الفيديوهات عن المستخدمين.</p>
+            <div class="input-group">
+                <label for="userEmailVideoUpload">البريد الإلكتروني للمستخدم</label>
+                <input type="email" id="userEmailVideoUpload" placeholder="user@example.com" required>
+            </div>
+            <div class="button-group">
+                <button id="addVideoPermissionBtn" class="unban-btn">إضافة صلاحية</button>
+                <button id="removeVideoPermissionBtn" class="ban-btn">إزالة صلاحية</button>
+            </div>
+            <p id="messageVideoUpload" class="message-feedback"></p>
+            <h3 class="section-title">المستخدمون المصرح لهم حالياً</h3>
+            <div class="list-container" id="allowedVideoUsersListContainer"></div>
+        </div>
+    </div>
+    
+    <div id="aiPostPermissionsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>إدارة صلاحيات نشر نماذج AI</h2>
+            <p class="description">أضف أو أزل المستخدمين المسموح لهم برؤية زر إضافة نموذج جديد.</p>
+            <div class="input-group">
+                <label for="userEmailAiPermissions">البريد الإلكتروني للمستخدم</label>
+                <input type="email" id="userEmailAiPermissions" placeholder="user@example.com" required>
+            </div>
+            <div class="button-group">
+                <button id="addAiPermissionBtn" class="unban-btn">إضافة صلاحية</button>
+                <button id="removeAiPermissionBtn" class="ban-btn">إزالة صلاحية</button>
+            </div>
+            <p id="messageAiPermissions" class="message-feedback"></p>
+            <h3 class="section-title">المستخدمون المصرح لهم حالياً</h3>
+            <div class="list-container" id="allowedAiUserListContainer"></div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

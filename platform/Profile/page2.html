@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>ملف المستخدم</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="profile-container">
+    <header class="profile-header">
+      <div class="cover-photo">
+        <img src="https://iili.io/KOK8o4p.md.jpg" alt="Cover Photo">
+      </div>
+      <div class="profile-details">
+        <div class="avatar-container">
+          <img id="profileImg" src="https://iili.io/KO3LaJR.md.jpg" alt="Profile Picture">
+        </div>
+        <button class="edit-btn" id="editBtn" title="تعديل البيانات">تعديل الملف الشخصي</button>
+      </div>
+    </header>
+
+    <main class="profile-info">
+      <div class="info-item">
+        <h1 id="profileName">جاري التحميل...</h1>
+        <div class="copy-icon-wrapper" id="copyNameBtn" title="نسخ الاسم">
+          <i data-lucide="copy" class="copy-icon"></i>
+          <i data-lucide="check-circle-2" class="copy-success-icon"></i>
+        </div>
+      </div>
+      <div class="info-item">
+        <p class="email" id="profileEmail">...</p>
+        <div class="copy-icon-wrapper" id="copyEmailBtn" title="نسخ البريد الإلكتروني">
+          <i data-lucide="copy" class="copy-icon"></i>
+          <i data-lucide="check-circle-2" class="copy-success-icon"></i>
+        </div>
+      </div>
+      <div class="info-item">
+        <p class="custom-id" id="profileCustomId">...</p>
+        <div class="copy-icon-wrapper" id="copyCustomIdBtn" title="نسخ المعرّف">
+          <i data-lucide="copy" class="copy-icon"></i>
+          <i data-lucide="check-circle-2" class="copy-success-icon"></i>
+        </div>
+      </div>
+      
+      <div class="stats">
+        <div class="stat-item">
+          <i data-lucide="wallet"></i>
+          <span class="stat-value" id="profileBalance">...</span>
+          <span class="stat-label">رصيد GT الحالي</span>
+        </div>
+      </div>
+    </main>
+
+    <section class="recharge-section">
+      <h2>شحن الرصيد</h2>
+      <p>اختر طريقة الدفع المناسبة لك</p>
+      <div class="payment-methods">
+        <div class="method-icon"><img src="https://iili.io/KOKo3bV.jpg" alt="Vodafone Cash"></div>
+        <div class="method-icon"><img src="https://iili.io/KOKorhB.md.jpg" alt="Etisalat Cash"></div>
+        <div class="method-icon"><img src="https://iili.io/KOKIaqP.md.jpg" alt="PayPal"></div>
+        <div class="method-icon"><img src="https://iili.io/KOKTYuf.md.jpg" alt="Binance"></div>
+      </div>
+      <a href="https://t.me/D_R_G_7_BOT" target="_blank" class="btn recharge-btn">
+        <span>بدء عملية الشحن</span>
+        <i data-lucide="arrow-left"></i>
+      </a>
+    </section>
+  </div>
+
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>تعديل البيانات</h3>
+        <button class="close-btn" id="closeBtn"><i data-lucide="x"></i></button>
+      </div>
+      <div class="input-group">
+        <label for="newNameInput">الاسم</label>
+        <input id="newNameInput" type="text" placeholder="أدخل الاسم الجديد">
+      </div>
+      <div class="input-group">
+        <label for="newImageInput">رابط الصورة الشخصية</label>
+        <input id="newImageInput" type="url" placeholder="https://example.com/me.jpg">
+      </div>
+      <div class="btn-group">
+        <button class="btn save-btn" id="saveBtn">حفظ التغييرات</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>

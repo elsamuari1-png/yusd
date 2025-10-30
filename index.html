@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NITROS | TECH</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="matrix-bg" id="matrixBg"></div>
+    <div class="container">
+        <img src="https://iili.io/FXSkHuI.md.jpg" alt="Profile Picture" class="avatar" />
+        <form id="loginForm" class="form-box">
+            <h1>تسجيل الدخول</h1>
+            <div class="input-wrapper">
+                <label for="loginUser" class="sr-only">البريد الإلكتروني</label>
+                <input type="email" id="loginUser" placeholder="البريد الإلكتروني" required maxlength="50" />
+                <div class="input-overlay" id="loginUserOverlay"></div>
+            </div>
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="loginPassword" class="sr-only">كلمة المرور</label>
+                    <input type="password" id="loginPassword" placeholder="كلمة المرور" required maxlength="15" />
+                    <div class="input-overlay" id="loginPasswordOverlay"></div>
+                </div>
+                <span class="toggle-password" onclick="togglePassword('loginPassword')" title="Show/Hide">𓂀</span>
+            </div>
+            <button type="submit">تسجيل الدخول</button>
+            <button type="button" class="toggle-btn" onclick="toggleForm()">ليس لديك حساب؟ إنشاء حساب</button>
+            <p id="loginError" class="error-msg hidden"></p>
+        </form>
+        <form id="registerForm" class="form-box hidden">
+            <h1>إنشاء حساب جديد</h1>
+            <div class="input-wrapper">
+                <label for="regName" class="sr-only">الاسم الكامل (إنجليزي فقط)</label>
+                <input type="text" id="regName" placeholder="الاسم الكامل (إنجليزي فقط)" required maxlength="15" pattern="[A-Za-z ]+" />
+                <div class="input-overlay" id="regNameOverlay"></div>
+            </div>
+            <div class="input-wrapper">
+                <label for="regEmail" class="sr-only">البريد الإلكتروني</label>
+                <input type="email" id="regEmail" placeholder="البريد الإلكتروني" required />
+                <div class="input-overlay" id="regEmailOverlay"></div>
+            </div>
+            <div class="input-wrapper">
+                <label for="regPhotoURL" class="sr-only">رابط صورة البروفايل (مطلوب)</label>
+                <input type="url" id="regPhotoURL" placeholder="رابط صورة البروفايل (مطلوب)" required />
+                <div class="input-overlay" id="regPhotoURLOverlay"></div>
+            </div>
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="regPassword" class="sr-only">كلمة المرور (7-15 حرف)</label>
+                    <input type="password" id="regPassword" placeholder="كلمة المرور (7-15 حرف)" required maxlength="15" minlength="7" />
+                    <div class="input-overlay" id="regPasswordOverlay"></div>
+                </div>
+                <span class="toggle-password" onclick="togglePassword('regPassword')" title="Show/Hide">𓂀</span>
+            </div>
+            <button type="submit">إنشاء الحساب</button>
+            <button type="button" class="toggle-btn" onclick="toggleForm()">لديك حساب؟ تسجيل الدخول</button>
+            <p id="regError" class="error-msg hidden"></p>
+        </form>
+    </div>
+
+    <div class="telegram-icon-container">
+        <a id="telegramLink" title="Join our Telegram channel">
+            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                <path d="M446.7 98.6l-67.6 31.2c-7.9 3.7-16.5-1.4-18.7-10.9L350.3 35c-2.3-9.5-14.8-11.4-19.3-3.8L210.7 242.9l-19.6-117c-2.7-16.1-23.7-20.9-35.3-8.8L2.3 194.2c-15.5 16-16.4 42-2.1 58.7l48.6 57.5 13.5 119c.4 3.7 3.3 6.8 7 8.3L153.3 499c7 2.8 15.3 1.1 20.3-4.3l74.9-82.7c3.9-4.3 9.4-6.9 15.3-7.5l140.7 41.2c8.2 2.4 16.5-3.3 19.3-11.7l30.9-97c2.6-8.2-1.2-17.4-9.3-21.7z"/>
+            </svg>
+        </a>
+    </div>
+
+    <div id="customDialog" class="dialog-backdrop hidden">
+        <div class="dialog-box">
+            <h2 id="dialogTitle"></h2>
+            <p id="dialogBody"></p>
+            <button id="dialogCloseBtn">إغلاق</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITROS | TECH</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="background-aurora"></div>
+    <div class="matrix-bg">
+        <canvas id="matrix"></canvas>
+    </div>
+
+    <header class="main-header">
+        <div class="logo">
+            <i class="fas fa-skull-crossbones"></i>
+            <span>NITROS | TECH</span>
+        </div>
+        <div id="menu-toggle" class="menu-toggle-desktop">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>القائمة</h3>
+            <div class="close-btn" id="close-btn"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="sidebar-profile">
+                <img src="https://iili.io/FXSkHuI.md.jpg" alt="Profile Picture" class="profile-img">
+                <h3 class="profile-brand">NITROS | TECH</h3>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-item" data-route="profile"><i class="fas fa-user-shield animated-icon"></i><span>بروفايل</span></a>
+                <a href="#" class="sidebar-item whatsapp-btn" data-route="whatsapp"><i class="fab fa-whatsapp animated-icon"></i><span>واتساب</span></a>
+                <a href="#" class="sidebar-item telegram-btn" data-route="telegram"><i class="fab fa-telegram animated-icon"></i><span>تليجرام</span></a>
+                <a href="#" class="sidebar-item contact-btn" data-route="contact"><i class="fas fa-envelope animated-icon"></i><span>للتواصل معنا</span></a>
+                <button class="sidebar-item" id="features-btn"><i class="fas fa-star animated-icon"></i><span>مميزات التطبيق</span></button>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <h1 class="main-title">
+            <span class="glitch" data-text="NITROS | TECH">NITROS | TECH</span>
+        </h1>
+
+        <div class="sections-grid-desktop">
+            <section class="section-card premium featured" data-tilt>
+                <div class="card-content">
+                    <div class="icon-wrapper"><i class="fas fa-crown"></i></div>
+                    <h3>أدوات مدفوعة</h3>
+                    <p>أقوى الأدوات الاحترافية</p>
+                    <div class="price">$513.99</div>
+                    <button class="cta-button premium-btn" data-route="subscription">اشترك الآن</button>
+                </div>
+            </section>
+            
+            <section class="section-card free" data-tilt>
+                <div class="card-content">
+                    <div class="icon-wrapper"><i class="fas fa-gift"></i></div>
+                    <h3>أدوات مجانية</h3>
+                    <p>مجموعة مختارة مجاناً</p>
+                    <div class="price">مجاناً</div>
+                    <button class="cta-button free-btn" data-route="free-tools">استخدم الآن</button>
+                </div>
+            </section>
+
+            <section class="section-card chat" data-tilt>
+                <div class="card-content">
+                    <div class="icon-wrapper"><i class="fas fa-comments"></i></div>
+                    <h3>دردشة آمنة</h3>
+                    <p>تواصل مشفر بالكامل</p>
+                    <div class="status online">متصل</div>
+                    <button class="cta-button chat-btn" data-route="conversation">ابدأ الدردشة</button>
+                </div>
+            </section>
+
+            <section class="section-card products" data-tilt>
+                <div class="card-content">
+                    <div class="icon-wrapper"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>منتجاتنا</h3>
+                    <p>أدوات مادية وبرمجية للبيع</p>
+                    <div class="price">مبرمجين او هكر</div>
+                    <button class="cta-button products-btn" data-route="shop">تسوق الآن</button>
+                </div>
+            </section>
+
+            <section class="section-card upload" data-tilt>
+                <div class="card-content">
+                    <div class="icon-wrapper"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>رفع مشاريعك</h3>
+                    <p>شارك ملفاتك بأمان تام</p>
+                    <div class="status online">فعّال</div>
+                    <button class="cta-button upload-btn" data-route="upload">ارفع الآن</button>
+                </div>
+            </section>
+
+            <section class="section-card videos" data-tilt>
+                <div class="card-content">
+                    <div class="icon-wrapper"><i class="fas fa-video"></i></div>
+                    <h3>فيديوهات متنوعة</h3>
+                    <p>شروحات، تحديات، ومراجعات</p>
+                    <div class="status online">مباشر</div>
+                    <button class="cta-button videos-btn" data-route="youtube">شاهد الآن</button>
+                </div>
+            </section>
+        </div>
+
+        <div class="accordion-container-mobile">
+             <div class="accordion-card">
+                <div class="accordion-header" data-toggle="accordion">
+                    <div class="accordion-icon premium"><i class="fas fa-crown"></i></div>
+                    <span class="accordion-title">أدوات مدفوعة</span>
+                    <i class="fas fa-chevron-down accordion-arrow"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p>أقوى الأدوات الاحترافية مع دعم فني كامل وتحديثات يومية.</p>
+                        <button class="cta-button premium-btn" data-route="subscription">اشترك الآن</button>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-card">
+                <div class="accordion-header" data-toggle="accordion">
+                    <div class="accordion-icon free"><i class="fas fa-gift"></i></div>
+                    <span class="accordion-title">أدوات مجانية</span>
+                    <i class="fas fa-chevron-down accordion-arrow"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p>مجموعة مختارة من الأدوات المجانية عالية الجودة بدون إعلانات.</p>
+                        <button class="cta-button free-btn" data-route="free-tools">استخدم الآن</button>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-card">
+                <div class="accordion-header" data-toggle="accordion">
+                    <div class="accordion-icon chat"><i class="fas fa-comments"></i></div>
+                    <span class="accordion-title">دردشة آمنة</span>
+                    <i class="fas fa-chevron-down accordion-arrow"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p>تواصل آمن مع تشفير AES-256 وحذف تلقائي للرسائل.</p>
+                        <button class="cta-button chat-btn" data-route="conversation">ابدأ الدردشة</button>
+                    </div>
+                </div>
+            </div>
+             <div class="accordion-card">
+                <div class="accordion-header" data-toggle="accordion">
+                    <div class="accordion-icon products"><i class="fas fa-shopping-cart"></i></div>
+                    <span class="accordion-title">منتجاتنا</span>
+                    <i class="fas fa-chevron-down accordion-arrow"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p>أدوات مادية وبرمجية للبيع، وكل ما تحتاجه في مكان واحد.</p>
+                        <button class="cta-button products-btn" data-route="shop">تسوق الآن</button>
+                    </div>
+                </div>
+            </div>
+             <div class="accordion-card">
+                <div class="accordion-header" data-toggle="accordion">
+                    <div class="accordion-icon upload"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <span class="accordion-title">رفع مشاريعك</span>
+                    <i class="fas fa-chevron-down accordion-arrow"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p>شارك ملفاتك بأمان تام مع سحابة آمنة لمشاريعك.</p>
+                        <button class="cta-button upload-btn" data-route="upload">ارفع الآن</button>
+                    </div>
+                </div>
+            </div>
+             <div class="accordion-card">
+                <div class="accordion-header" data-toggle="accordion">
+                    <div class="accordion-icon videos"><i class="fas fa-video"></i></div>
+                    <span class="accordion-title">فيديوهات متنوعة</span>
+                    <i class="fas fa-chevron-down accordion-arrow"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p>استمتع بمحتوانا المرئي من شروحات تقنية وتحديات.</p>
+                        <button class="cta-button videos-btn" data-route="youtube">شاهد الآن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div id="features-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">مميزات التطبيق</h3>
+                <button id="close-modal-btn" class="close-modal-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> واجهة مستخدم حديثة وسريعة.</li>
+                    <li><i class="fas fa-shield-alt"></i> أمان وحماية للبيانات.</li>
+                    <li><i class="fas fa-cogs"></i> أدوات قوية للمطورين.</li>
+                    <li><i class="fas fa-mobile-alt"></i> متوافق مع جميع الأجهزة.</li>
+                    <li><i class="fas fa-rocket"></i> أداء عالي وسرعة فائقة.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" aria-label="Home"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+        <a href="#" class="nav-item" data-route="shop" aria-label="Shop"><i class="fas fa-shopping-cart"></i><span>المتجر</span></a>
+        <a href="#" class="nav-item" data-route="conversation" aria-label="Chat"><i class="fas fa-comments"></i><span>الدردشة</span></a>
+        <a href="#" class="nav-item" data-route="profile" aria-label="Profile"><i class="fas fa-user"></i><span>بروفايل</span></a>
+        <button class="nav-item" id="menu-btn-bottom" aria-label="Open Menu"><i class="fas fa-bars"></i><span>القائمة</span></button>
+    </nav>
+
+    <audio id="hover-sound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

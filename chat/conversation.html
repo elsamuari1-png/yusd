@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>أهلاً بك</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="conversation.css">
+  <script type="module" src="auth.js"></script>
+</head>
+<body class="dark-center">
+  <div id="loadingOverlay" class="loading-overlay active">
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <p>جاري تحميل الحقول...</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h1>أهلاً بك</h1>
+    <div class="input-wrapper">
+      <i class="fa-solid fa-user-shield"></i>
+      <input id="displayName" placeholder="اسمك الحقيقي" readonly>
+    </div>
+    <div class="input-wrapper">
+      <i class="fa-solid fa-camera-retro"></i>
+      <input id="photoURL" placeholder="رابط الصورة الشخصية">
+    </div>
+
+    <div id="previewContainer" class="preview-container">
+        <div class="chat-bubble">
+            <img id="previewImage" src="https://i.imgur.com/83itGts.png" alt="Avatar">
+            <div class="chat-content">
+                <strong id="previewName">اسمك هنا</strong>
+            </div>
+        </div>
+        <div id="authTerminal" class="auth-terminal">
+          <p><span class="terminal-prompt">&gt;</span> <span id="terminalLine1" class="terminal-line"></span></p>
+          <p><span class="terminal-prompt">&gt;</span> <span id="terminalLine2" class="terminal-line"></span></p>
+          <p><span class="terminal-prompt">&gt;</span> <span id="terminalLine3" class="terminal-line"></span></p>
+        </div>
+    </div>
+    
+  </div>
+  
+  <div id="customDialog" class="dialog-box">
+      <div class="dialog-content">
+          <p id="dialogMessage"></p>
+          <button onclick="document.getElementById('customDialog').classList.remove('active')">حسناً</button>
+      </div>
+  </div>
+</body>
+</html>

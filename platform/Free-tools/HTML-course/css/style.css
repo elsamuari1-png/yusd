@@ -1,0 +1,91 @@
+:root {
+  --bg: #0f0f0f;
+  --text: #ffffff;
+  --accent: #667eea;
+  --radius: 50%;
+  --font: "Tajawal", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  text-align: center;
+  padding: 0.5rem;
+}
+
+header {
+  padding: 1rem 0.5rem 0.5rem;
+}
+
+header h1 {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+}
+
+header p {
+  opacity: 0.7;
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+}
+
+/* أرقام الحلقات */
+#numbers-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.25rem;
+}
+
+#numbers-bar button {
+  /* حجم متجاوب: 32px على الموبايل → 40px على الشاشات الكبيرة */
+  width: clamp(32px, 8vw, 40px);
+  height: clamp(32px, 8vw, 40px);
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font-size: clamp(0.75rem, 2.5vw, 1rem);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#numbers-bar button:hover,
+#numbers-bar button.active {
+  background: #fff;
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+/* المشغل */
+.player-section {
+  max-width: 1000px;
+  margin: 0.5rem auto;
+  padding: 0 0.5rem;
+}
+
+#video-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  border: none;
+}
+
+footer {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+footer a {
+  color: var(--accent);
+}

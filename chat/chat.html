@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>الدردشة</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script type="module" src="chat.js"></script>
+</head>
+<body class="dark-chat">
+
+  <div class="app-container">
+
+    <div id="listsView" class="view active">
+      <header class="app-header">
+        <h1>الدردشة</h1>
+        <div class="header-actions">
+           <button id="createGroupBtn" class="header-icon-btn" title="إنشاء مجموعة جديدة"><i class="fas fa-users"></i></button>
+           <button id="globalBtn" class="header-icon-btn" title="الدردشة العامة"><i class="fas fa-globe"></i></button>
+        </div>
+      </header>
+      <nav class="app-tabs">
+        <button class="tab-btn active" data-view="recentChatsView">المحادثات</button>
+        <button class="tab-btn" data-view="groupsSearchView">المجموعات</button>
+        <button class="tab-btn" data-view="userSearchView">مستخدمين</button>
+      </nav>
+      <main class="lists-content">
+        <div id="recentChatsView" class="list-container active">
+          <ul id="recentChatsList"></ul>
+        </div>
+        <div id="groupsSearchView" class="list-container">
+          <div class="search-bar">
+            <input type="text" id="groupSearchInput" class="dialog-input" placeholder="ابحث بالاسم أو المعرف...">
+          </div>
+          <ul id="groupsList"></ul>
+        </div>
+        <div id="userSearchView" class="list-container">
+          <div class="search-bar">
+            <input type="text" id="searchInput" class="dialog-input" placeholder="اكتب اسم المستخدم...">
+          </div>
+          <ul id="usersList"></ul>
+        </div>
+      </main>
+    </div>
+
+    <div id="chatView" class="view">
+        <header class="chatHeader">
+            <button id="backToListsBtn" class="header-icon-btn back-btn"><i class="fas fa-arrow-right"></i></button>
+            <img id="chatHeaderAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b949e'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Chat Avatar" class="chat-header-avatar">
+            <div class="chat-info">
+              <span id="chatHeader">اختر شخص للدردشة</span>
+              <span id="typingIndicator" class="typing-indicator" style="display: none;">يكتب الآن...</span>
+            </div>
+        </header>
+        <div id="pinnedMessageBar" class="pinned-message-bar" style="display: none;">
+            <i class="fas fa-thumbtack pin-icon"></i>
+            <p id="pinnedMessageText"></p>
+            <button id="unpinMessageBtn" class="unpin-btn">&times;</button>
+        </div>
+        <div id="messages" class="messages">
+            <div id="messageLoader" class="message-loader" style="display: none;"><div class="spinner"></div></div>
+        </div>
+        <div id="replyPreview" class="reply-preview-bar" style="display: none;">
+            <div class="reply-preview-content">
+                <strong id="replyPreviewSender"></strong>
+                <p id="replyPreviewText"></p>
+            </div>
+            <button id="cancelReplyBtn" class="cancel-reply-btn">&times;</button>
+        </div>
+        <div id="mentionSuggestions" class="mention-suggestions"></div>
+        <footer class="input-bar">
+            <button id="createPollBtn" class="header-icon-btn" title="إنشاء استطلاع" style="display: none;"><i class="fas fa-poll"></i></button>
+            <textarea id="messageInput" placeholder="اكتب رسالتك..." rows="1"></textarea>
+            <button id="sendMessageBtn">إرسال</button>
+        </footer>
+    </div>
+  </div>
+
+  <div id="profileSheet" class="profile-sheet">
+    <div class="sheet-handle"></div>
+    <button class="dialog-close-btn">&times;</button>
+    <div class="profile-sheet-header">
+    </div>
+    <div class="profile-content">
+        <img id="profilePhoto" src="" class="profile-photo" alt="صورة الملف الشخصي">
+        <div class="sheet-title-wrapper">
+            <h3 id="profileName"></h3>
+            <i id="copyProfileNameBtn" class="fas fa-copy copy-icon" title="نسخ الاسم"></i>
+        </div>
+        <p id="profileBio" class="profile-bio-text"></p>
+        <div class="sheet-button-group">
+            <button id="startChatFromProfileBtn" class="sheet-btn"><i class="fas fa-comment-dots"></i> بدء الدردشة</button>
+            <button id="reportUserSheetBtn" class="sheet-btn sheet-btn-danger"><i class="fas fa-flag"></i> إبلاغ</button>
+            <button id="cancelProfileSheetBtn" class="sheet-btn cancel-btn"><i class="fas fa-times"></i> إلغاء</button>
+        </div>
+    </div>
+  </div>
+
+
+  <div id="groupSettingsSheet" class="profile-sheet">
+    <div class="sheet-handle"></div>
+    <button class="dialog-close-btn">&times;</button>
+    <div class="sheet-content">
+        <div class="sheet-header">
+            <img id="sheetGroupPhoto" src="" class="profile-photo-dialog" alt="صورة المجموعة">
+            <div class="sheet-title-wrapper">
+                <span id="sheetGroupName"></span>
+                <i id="copyGroupNameBtn" class="fas fa-copy copy-icon" title="نسخ الاسم"></i>
+            </div>
+            <p>
+                المعرف: <code id="sheetGroupId"></code>
+                <i id="copyGroupIdBtn" class="fas fa-copy copy-icon" title="نسخ المعرف"></i>
+            </p>
+        </div>
+        <div id="sheetAdminControls" class="sheet-section">
+            <h4>أدوات الإدارة</h4>
+            <div class="settings-toggle-row">
+                <span>السماح بدردشة الأعضاء (للمجموعات فقط)</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="chatEnabledToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div id="groupInfoEditContainer" style="display: none; width: 100%; flex-direction: column; gap: 10px;">
+                <input type="text" id="groupNameEditInput" class="dialog-input" placeholder="تعديل اسم المجموعة">
+                <input type="text" id="groupImageEditInput" class="dialog-input" placeholder="تعديل رابط الصورة">
+                <button id="saveGroupChangesBtn" class="sidebar-btn">حفظ التغييرات</button>
+            </div>
+            <hr id="ownerDivider" class="sidebar-divider" style="display: none;">
+            <button id="resetJoinIdBtn" class="sidebar-btn" style="display: none;">إعادة تعيين مُعرّف المجموعة</button>
+            <button id="deleteGroupBtn" class="sidebar-btn delete-btn" style="display: none;">حذف المجموعة</button>
+        </div>
+        <div class="sheet-section">
+            <h4>الأعضاء (<span id="sheetMemberCount"></span>)</h4>
+            <div id="sheetAdminsList"></div>
+            <div id="sheetModeratorsList"></div>
+            <div id="sheetMembersList"></div>
+        </div>
+        <div id="sheetBannedList" class="sheet-section" style="display: none;"></div>
+    </div>
+  </div>
+
+  <div id="chatDialog" class="dialog-box">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h4 id="dialogTitle">رسالة</h4>
+        <button class="dialog-close-btn">&times;</button>
+      </div>
+      <div class="dialog-body">
+        <p id="dialogMessage"></p>
+      </div>
+      <div class="dialog-footer">
+        <button class="confirm-btn" onclick="document.getElementById('chatDialog').classList.remove('active')">حسناً</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="userProfileDialog" class="dialog-box">
+    <div class="dialog-content">
+      <button class="dialog-close-btn">&times;</button>
+      <img id="dialogProfilePhoto" src="" class="profile-photo-dialog" alt="صورة الملف الشخصي للمستخدم">
+      <div class="profile-name-wrapper">
+        <h3 id="dialogProfileName"></h3>
+        <img id="dialogVerificationBadge" src="" class="verification-badge-dialog" style="display: none;" alt="شارة التحقق">
+      </div>
+      <p id="dialogProfileBio"></p>
+      <button id="startChatBtn" class="confirm-btn">بدء الدردشة</button>
+    </div>
+  </div>
+
+  <div id="reportDialog" class="dialog-box">
+    <div class="dialog-content">
+      <button class="dialog-close-btn">&times;</button>
+      <h4>إبلاغ عن مستخدم</h4>
+      <p>يرجى كتابة سبب الإبلاغ بوضوح.</p>
+      <textarea id="reportDescriptionInput" class="dialog-textarea" placeholder="اكتب وصف الإبلاغ..."></textarea>
+      <div class="dialog-footer">
+        <button class="cancel-btn">إلغاء</button>
+        <button id="submitReportBtn" class="confirm-btn">إرسال الإبلاغ</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="createGroupDialog" class="dialog-box">
+    <div class="dialog-content">
+      <button class="dialog-close-btn">&times;</button>
+      <h4>إنشاء مجموعة أو قناة</h4>
+      <input type="text" id="groupNameInput" class="dialog-input" placeholder="اكتب اسم المجموعة/القناة">
+      <select id="groupCategorySelect" class="dialog-input">
+          <option value="" disabled selected>اختر الفئة</option>
+          <option value="programming">البرمجة</option>
+          <option value="content-creation">إنشاء محتوى</option>
+          <option value="language-learning">تعليم لغات</option>
+      </select>
+      <div class="radio-group" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 10px;">
+          <label><input type="radio" name="groupType" value="group" checked> مجموعة</label>
+          <label><input type="radio" name="groupType" value="channel"> قناة</label>
+      </div>
+      <input type="text" id="groupImageInput" class="dialog-input" placeholder="رابط صورة المجموعة/القناة">
+      <div class="dialog-footer">
+        <button class="cancel-btn">إلغاء</button>
+        <button id="submitCreateGroupBtn" class="confirm-btn">إنشاء</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="permissionsManagementDialog" class="dialog-box">
+      <div class="dialog-content">
+          <button class="dialog-close-btn">&times;</button>
+          <h4 id="permissionsDialogTitle">إدارة الصلاحيات</h4>
+          <div class="dialog-body" style="text-align: right; width: 100%; gap: 12px;">
+              <p style="text-align: center; color: var(--text);">المستخدم: <strong id="permissionsMemberName"></strong></p>
+              <div class="settings-toggle-row">
+                  <label for="canEditGroupInfo">تعديل معلومات المجموعة</label>
+                  <label class="toggle-switch"><input type="checkbox" id="canEditGroupInfo"><span class="slider round"></span></label>
+              </div>
+              <div class="settings-toggle-row">
+                  <label for="canDeleteMessages">حذف الرسائل</label>
+                  <label class="toggle-switch"><input type="checkbox" id="canDeleteMessages"><span class="slider round"></span></label>
+              </div>
+              <div class="settings-toggle-row">
+                  <label for="canPinMessages">تثبيت الرسائل</label>
+                  <label class="toggle-switch"><input type="checkbox" id="canPinMessages"><span class="slider round"></span></label>
+              </div>
+              <div class="settings-toggle-row">
+                  <label for="canBanUsers">حظر المستخدمين</label>
+                  <label class="toggle-switch"><input type="checkbox" id="canBanUsers"><span class="slider round"></span></label>
+              </div>
+              <div class="settings-toggle-row" id="manageModsPermissionRow" style="display: none;">
+                  <label for="canManageModerators">إدارة المشرفين</label>
+                  <label class="toggle-switch"><input type="checkbox" id="canManageModerators"><span class="slider round"></span></label>
+              </div>
+          </div>
+          <div class="dialog-footer">
+              <button class="cancel-btn">إلغاء</button>
+              <button id="savePermissionsBtn" class="confirm-btn">حفظ الصلاحيات</button>
+          </div>
+          <hr class="sidebar-divider" style="width:100%">
+          <button id="banFromDialogBtn" class="sheet-btn sheet-btn-danger" style="width: 100%;">حظر هذا المستخدم</button>
+      </div>
+  </div>
+
+  <div id="messageActionsSheet" class="profile-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-content">
+      <div class="sheet-button-group" style="max-width: 280px;">
+        <button id="replyMessageBtn" class="sheet-btn"><i class="fas fa-reply"></i> رد</button>
+        <button id="reactMessageBtn" class="sheet-btn"><i class="fas fa-smile"></i> إضافة تفاعل</button>
+        <hr class="sidebar-divider" style="width: 100%;" />
+        <button id="pinMessageBtn" class="sheet-btn"><i class="fas fa-thumbtack"></i> تثبيت الرسالة</button>
+        <button id="forwardMessageBtn" class="sheet-btn"><i class="fas fa-share"></i> إعادة توجيه</button>
+        <button id="editMessageBtn" class="sheet-btn"><i class="fas fa-edit"></i> تعديل الرسالة</button>
+        <button id="deleteMessageBtn" class="sheet-btn sheet-btn-danger"><i class="fas fa-trash"></i> حذف الرسالة</button>
+        <button id="cancelActionBtn" class="sheet-btn" style="background-color: var(--border);">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="editMessageDialog" class="dialog-box">
+    <div class="dialog-content">
+      <button class="dialog-close-btn">&times;</button>
+      <h4>تعديل الرسالة</h4>
+      <textarea id="editMessageInput" class="dialog-textarea" rows="4" placeholder="اكتب رسالتك المعدلة..."></textarea>
+      <div class="dialog-footer">
+        <button class="cancel-btn">إلغاء</button>
+        <button id="saveEditBtn" class="confirm-btn">حفظ</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirmDialog" class="dialog-box">
+    <div class="dialog-content">
+      <h4 id="confirmDialogTitle" style="color: var(--danger);">تأكيد الإجراء</h4>
+      <p id="confirmDialogMessage"></p>
+      <div class="dialog-footer">
+        <button id="confirmDialogNo" class="cancel-btn">إلغاء</button>
+        <button id="confirmDialogYes" class="confirm-btn sheet-btn-danger">تأكيد</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="forwardDialog" class="dialog-box">
+    <div class="dialog-content list-dialog">
+      <div class="dialog-header">
+        <h4>إعادة توجيه إلى...</h4>
+        <button class="dialog-close-btn">&times;</button>
+      </div>
+      <div class="dialog-body">
+        <ul id="forwardChatList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="reactionPicker" class="reaction-picker" style="display: none;">
+      <span class="reaction-emoji">👍</span>
+      <span class="reaction-emoji">❤️</span>
+      <span class="reaction-emoji">😂</span>
+      <span class="reaction-emoji">😮</span>
+      <span class="reaction-emoji">😢</span>
+      <span class="reaction-emoji">🙏</span>
+  </div>
+
+  <div id="createPollDialog" class="dialog-box">
+    <div class="dialog-content">
+      <button class="dialog-close-btn">&times;</button>
+      <h4>إنشاء استطلاع رأي</h4>
+      <input type="text" id="pollQuestionInput" class="dialog-input" placeholder="اكتب سؤال الاستطلاع...">
+      <div id="pollOptionsContainer" class="dialog-body" style="gap: 8px;">
+        <input type="text" class="dialog-input poll-option-input" placeholder="الخيار 1">
+        <input type="text" class="dialog-input poll-option-input" placeholder="الخيار 2">
+      </div>
+      <button id="addPollOptionBtn" class="sidebar-btn">إضافة خيار</button>
+      <div class="dialog-footer">
+        <button class="cancel-btn">إلغاء</button>
+        <button id="submitCreatePollBtn" class="confirm-btn">إنشاء</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

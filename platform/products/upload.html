@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>NITROS TECH</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-left">
+            <button class="menu-toggle-button" id="menu-toggle-button">
+                <span class="material-icons">menu</span>
+            </button>
+            <div class="navbar-logo">
+                <img src="https://iili.io/FXSkHuI.md.jpg" alt="Logo">
+            </div>
+            <div class="navbar-title">NITROS TECH</div>
+        </div>
+        
+        <div class="navbar-center">
+            <div class="navbar-search">
+                <span class="material-icons">search</span>
+                <input type="search" id="search-input" placeholder="ابحث بالاسم أو الوصف...">
+            </div>
+        </div>
+
+        <div class="navbar-right">
+            <button id="theme-toggle-button" class="theme-toggle-button">
+                <span class="material-icons">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="https://iili.io/FXSkHuI.md.jpg" alt="User Avatar" class="sidebar-avatar">
+            <h3 class="animated-text">NITROS l TECH</h3>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-item active" data-filter="applications">
+                <span class="material-icons">apps</span>
+                رفع تطبيقات
+            </a>
+            <a href="#" class="sidebar-item" data-filter="projects">
+                <span class="material-icons">folder_open</span>
+                رفع مشاريع متنوعة
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="https://t.me/BO2LPP" target="_blank" class="social-icon">
+                <i class="fab fa-telegram-plane"></i>
+                <span>قناتنا</span>
+            </a>
+            <a href="https://t.me/D_R_G_7_BOT" target="_blank" class="social-icon">
+                <i class="fas fa-robot"></i>
+                <span>تواصل معنا</span>
+            </a>
+            <a href="https://t.me/TYCSV7_BOT" target="_blank" class="social-icon">
+                <span class="material-icons">cloud_upload</span>
+                <span>استضافة</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content" id="main-content">
+        <div class="cards-container" id="cards-container">
+            </div>
+    </main>
+
+    <button class="add-button" id="add-button" style="display: none;">
+        <span class="material-icons">add</span>
+    </button>
+
+    <dialog id="add-dialog" class="add-dialog">
+        <div class="dialog-header">
+            <h2>رفع مشروع جديد</h2>
+            <button class="close-button" id="close-dialog-button">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <form id="add-form">
+            <label for="userName">الاسم:</label>
+            <input type="text" id="userName" required readonly>
+
+            <label for="projectLink">رابط التطبيق:</label>
+            <input type="url" id="projectLink" required>
+
+            <label for="projectDescription">وصف المشروع:</label>
+            <textarea id="projectDescription" required></textarea>
+            
+            <div>
+                <label>رابط الصورة (صورة واحدة):</label>
+                <input type="url" id="imageLink" class="image-link-input" placeholder="أدخل رابط الصورة هنا" required>
+            </div>
+            
+            <div class="form-group">
+                <label>نوع المشروع:</label>
+                <div class="radio-group-icons">
+                    <label class="radio-icon-label">
+                        <input type="radio" name="projectType" value="applications" checked>
+                        <div class="icon-container">
+                            <span class="material-icons">phone_android</span>
+                            <span>تطبيق</span>
+                        </div>
+                    </label>
+                    <label class="radio-icon-label">
+                        <input type="radio" name="projectType" value="projects">
+                        <div class="icon-container">
+                            <span class="material-icons">palette</span>
+                            <span>مشروع متنوع</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>نوع الدفع:</label>
+                <div class="radio-group-icons">
+                    <label class="radio-icon-label">
+                        <input type="radio" name="paymentType" value="free" checked>
+                        <div class="icon-container">
+                            <span class="material-icons">money_off</span>
+                            <span>مجاني</span>
+                        </div>
+                    </label>
+                    <label class="radio-icon-label">
+                        <input type="radio" name="paymentType" value="paid">
+                        <div class="icon-container">
+                            <span class="material-icons">monetization_on</span>
+                            <span>مدفوع</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div id="price-input-container" style="display: none;">
+                <label for="projectPrice">سعر المشروع (GT):</label>
+                <input type="number" id="projectPrice" placeholder="أدخل السعر هنا">
+            </div>
+
+            <button type="submit" class="submit-button">رفع</button>
+        </form>
+    </dialog>
+    
+    <dialog id="success-dialog" class="success-dialog">
+        <div class="dialog-content">
+            <span class="material-icons success-icon">check_circle</span>
+            <h3>تم رفع المشروع بنجاح!</h3>
+            <button class="close-button" id="close-success-dialog">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+    </dialog>
+    
+    <dialog id="insufficient-balance-dialog" class="notice-dialog">
+        <div class="dialog-content">
+            <span class="material-icons notice-icon">warning_amber</span>
+            <h3>عفواً، ليس لديك رصيد كافٍ</h3>
+            <button class="close-button" id="close-balance-dialog">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+    </dialog>
+
+    <dialog id="self-purchase-dialog" class="notice-dialog">
+        <div class="dialog-content">
+            <span class="material-icons notice-icon">block</span>
+            <h3>لا يمكنك شراء منتج قمت برفعه</h3>
+            <button class="close-button" id="close-self-purchase-dialog">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+    </dialog>
+
+    <dialog id="transaction-fail-dialog" class="notice-dialog">
+        <div class="dialog-content">
+            <span class="material-icons notice-icon">error_outline</span>
+            <h3>فشلت عملية التحويل</h3>
+            <p>حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.</p>
+            <button class="close-button" id="close-fail-dialog">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+    </dialog>
+
+    <dialog id="purchase-dialog" class="add-dialog">
+        <div class="dialog-header">
+            <h2>دفع بي GT</h2>
+            <button class="close-button" id="close-purchase-dialog">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <form id="purchase-form">
+            <div class="purchase-details">
+                <p>السعر المطلوب: <strong id="purchase-price"></strong> GT</p>
+            </div>
+            <label for="buyer-custom-id">المعرّف الخاص بك:</label>
+            <input type="text" id="buyer-custom-id" readonly>
+
+            <label for="transfer-amount">المبلغ المحوّل:</label>
+            <input type="text" id="transfer-amount" readonly>
+            
+            <button type="submit" class="submit-button" id="confirm-transfer-button">التحويل</button>
+        </form>
+    </dialog>
+
+    <dialog id="proof-dialog" class="success-dialog">
+        <div class="dialog-content">
+            <span class="material-icons success-icon">receipt_long</span>
+            <h3>إثبات عملية الشراء</h3>
+            <div class="proof-details">
+                <p><strong>اسم المشتري:</strong> <span id="proof-buyer-name"></span></p>
+                <p><strong>المعرّف الخاص بك:</strong> <span id="proof-custom-id"></span></p>
+                <p><strong>المبلغ:</strong> <span id="proof-amount"></span> GT</p>
+                <p><strong>التاريخ:</strong> <span id="proof-date"></span></p>
+            </div>
+            <p class="screenshot-notice">خذها سكرين من هاتف اخر لاثبات عمليه الشراء</p>
+            <button class="close-button" id="close-proof-dialog">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+    </dialog>
+
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>
