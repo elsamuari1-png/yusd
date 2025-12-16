@@ -116,7 +116,7 @@ const currentUserStatus = {
   isPrivateChatBanned: localStorage.getItem("isPrivateChatBanned") === "true",
 };
 
-if (!uid || !name) location.href = "index.html";
+if (!uid || !name) location.href = "chat.html";
 
 let currentChatId = null;
 let currentChatName = null;
